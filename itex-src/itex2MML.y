@@ -122,7 +122,7 @@
 #else
     void (*itex2MML_write) (const char * buffer, size_t length) = itex2MML_default_write;
     void (*itex2MML_write_mathml) (const char * mathml) = itex2MML_default_write_mathml;
-#endif 
+#endif
 
  char * itex2MML_empty_string = "";
 
@@ -302,7 +302,7 @@ expression: STARTMATH ENDMATH {/* empty math group - ignore*/}
   char * p = itex2MML_copy3("<math xmlns='http://www.w3.org/1998/Math/MathML' display='inline'><semantics><mrow>", $2, "</mrow><annotation encoding='application/x-tex'>");
   char * s = itex2MML_copy3(p, $3, "</annotation></semantics></math>");
   itex2MML_free_string(p);
-  itex2MML_free_string($2);  
+  itex2MML_free_string($2);
   itex2MML_free_string($3);
   if (r) {
     (*r) = (s == itex2MML_empty_string) ? 0 : s;
@@ -318,7 +318,7 @@ expression: STARTMATH ENDMATH {/* empty math group - ignore*/}
   char * p = itex2MML_copy3("<math xmlns='http://www.w3.org/1998/Math/MathML' display='block'><semantics><mrow>", $2, "</mrow><annotation encoding='application/x-tex'>");
   char * s = itex2MML_copy3(p, $3, "</annotation></semantics></math>");
   itex2MML_free_string(p);
-  itex2MML_free_string($2);  
+  itex2MML_free_string($2);
   itex2MML_free_string($3);
   if (r) {
     (*r) = (s == itex2MML_empty_string) ? 0 : s;
@@ -531,12 +531,12 @@ closedTerm: array
   $$ = itex2MML_copy3("<mn>", $1, "</mn>");
   itex2MML_free_string($1);
 }
-| mo 
+| mo
 | tensor
 | multi
 | mfrac
 | binom
-| msqrt 
+| msqrt
 | mroot
 | raisebox
 | munder
@@ -654,7 +654,7 @@ bigdelim: BIG LEFTDELIM {
   itex2MML_rowposn = 2;
   $$ = itex2MML_copy3("<mo maxsize=\"1.2em\" minsize=\"1.2em\">", $2, "</mo>");
   itex2MML_free_string($2);
-} 
+}
 | BIG RIGHTDELIM {
   $$ = itex2MML_copy3("<mo maxsize=\"1.2em\" minsize=\"1.2em\">", $2, "</mo>");
   itex2MML_free_string($2);
@@ -680,7 +680,7 @@ bigdelim: BIG LEFTDELIM {
   itex2MML_rowposn = 2;
   $$ = itex2MML_copy3("<mo maxsize=\"2.4em\" minsize=\"2.4em\">", $2, "</mo>");
   itex2MML_free_string($2);
-} 
+}
 | BIGG RIGHTDELIM {
   $$ = itex2MML_copy3("<mo maxsize=\"2.4em\" minsize=\"2.4em\">", $2, "</mo>");
   itex2MML_free_string($2);
@@ -726,7 +726,7 @@ bigdelim: BIG LEFTDELIM {
   itex2MML_rowposn = 2;
   $$ = itex2MML_copy3("<mo maxsize=\"2.4em\" minsize=\"2.4em\">", $2, "</mo>");
   itex2MML_free_string($2);
-} 
+}
 | BIGGL OTHERDELIM {
   itex2MML_rowposn = 2;
   $$ = itex2MML_copy3("<mo maxsize=\"2.4em\" minsize=\"2.4em\">", $2, "</mo>");
@@ -1172,7 +1172,7 @@ multi: MULTI MROWOPEN subsupList MROWCLOSE closedTerm MROWOPEN subsupList MROWCL
   $$ = itex2MML_copy2(s1, "</mmultiscripts>");
   itex2MML_free_string(s1);
   itex2MML_free_string($3);
-  itex2MML_free_string($5); 
+  itex2MML_free_string($5);
 };
 
 subsupList: subsupTerm {

@@ -1,4 +1,4 @@
-%module itex2MML 
+%module itex2MML
 %{
 #include "itex2MML.h"
 extern const char * itex2MML_output ();

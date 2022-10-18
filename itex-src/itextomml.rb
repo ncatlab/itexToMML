@@ -11,7 +11,7 @@
 #    3. This module can then be invoked like:
 #
 #            require 'itextomml'
-#            
+#
 #            itex = Itex2MML::Parser.new
 #            itex.html_filter(string)
 #
@@ -22,7 +22,7 @@
 #
 #       itex.html_filter(a_string)
 #               converts all itex equations in a_string to MathML, passing the
-#               rest of a_string unmodified. Returns the converted string. 
+#               rest of a_string unmodified. Returns the converted string.
 #
 #       itex.filter(a_string)
 #               converts all itex equations in a_string to MathML. Returns just
@@ -48,30 +48,30 @@ require 'thread'
 
 module Itex2MML
   class Error < RuntimeError; end
- 
+
   class Parser
     def self.semaphore
       @semaphore ||= Mutex.new
     end
-   
+
     def html_filter(string)
       parse(string, :itex2MML_html_filter)
     end
-   
+
     def filter(string)
       parse(string, :itex2MML_filter)
     end
- 
+
     def inline_filter(string)
       parse("\$#{string}\$", :itex2MML_filter)
     end
- 
+
     def block_filter(string)
       parse("\$\$#{string}\$\$", :itex2MML_filter)
     end
- 
+
   private
- 
+
     def parse(string, message)
       str = as_bytes(string.to_str)
       self.class.semaphore.synchronize do
@@ -79,7 +79,7 @@ module Itex2MML
         as_utf8(Itex2MML.itex2MML_output)
       end
     end
-    
+
     if "".respond_to?(:force_encoding)
       def as_bytes(string)
         string.force_encoding("ASCII-8BIT")
@@ -147,7 +147,7 @@ if __FILE__ == $0
       itex = Itex2MML::Parser.new
       assert_equal("<math xmlns='http://www.w3.org/1998/Math/MathML' display='inline'><semantics><mrow><mi>sin</mi><mo stretchy=\"false\">(</mo><mi>x</mi><mo stretchy=\"false\">)</mo></mrow><annotation encoding='application/x-tex'>\\sin(x)</annotation></semantics></math>", itex.filter("ecuasi\303\263n $\\sin(x)$"))
     end
-    
+
     def test_utf8_in_svg_foreignObject
       itex = Itex2MML::Parser.new
       s = "".respond_to?(:force_encoding) ? "\u2032" : "\342\200\262"

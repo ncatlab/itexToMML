@@ -88,7 +88,7 @@ end
        | [\xC2-\xDF][\x80-\xBF]             # non-overlong 2-byte
        |  \xE0[\xA0-\xBF][\x80-\xBF]        # excluding overlongs
        | [\xE1-\xEC\xEE][\x80-\xBF]{2}      # straight 3-byte
-       |  \xEF[\x80-\xBE]{2}                # 
+       |  \xEF[\x80-\xBE]{2}                #
        |  \xEF\xBF[\x80-\xBD]               # excluding U+fffe and U+ffff
        |  \xED[\x80-\x9F][\x80-\xBF]        # excluding surrogates
        |  \xF0[\x90-\xBF][\x80-\xBF]{2}     # planes 1-3
@@ -96,7 +96,7 @@ end
        |  \xF4[\x80-\x8F][\x80-\xBF]{2}     # plane 16
      )*\Z/nx;
 #++
-     
+
 # Check whether a string is valid utf-8
 #
 # :call-seq:
@@ -107,19 +107,19 @@ end
    def is_utf8?
      #expand NCRs to utf-8
      text = self.check_ncrs.as_bytes
-     
+
      # You might think this is faster, but it isn't
      #pieces = self.split(/&#[xX]([a-fA-F0-9]+);/)
      #1.step(pieces.length-1, 2) {|i| pieces[i] = [pieces[i].hex].pack('U*')}
      #pieces = pieces.join.split(/&#(\d+);/)
      #1.step(pieces.length-1, 2) {|i| pieces[i] = [pieces[i].to_i].pack('U*')}
      #text = pieces.join
-          
+
      #ensure the resulting string of bytes is valid utf-8
      text =~ UTF8_REGEX
    end
 
-#:stopdoc: 
+#:stopdoc:
 
   def blank?
     self.dup.as_bytes !~ /\S/
@@ -2283,13 +2283,13 @@ end
 #--
     def to_utf8
       self.gsub(/&([a-zA-Z0-9]+);/) {|m| $1.convert_to_utf8}
-      
+
       # You might think this is faster, but it isn't
       # pieces = self.split(/&([a-zA-Z0-9]+);/)
       # 1.step(pieces.length-1, 2) {|i| pieces[i].convert_to_utf8}
       # pieces.join
     end
-    
+
 #++
 # Converts XHTML+MathML named entities in string to UTF-8
 #
@@ -2312,11 +2312,11 @@ end
       '"' => '&quot;',
     }
     TO_ESCAPE_PATTERN = Regexp.union(*TO_ESCAPE.keys)
-    
+
     def escapeHTML
       self.gsub(TO_ESCAPE_PATTERN){|m| TO_ESCAPE[m]}
     end
-    
+
     def unescapeHTML
     self.gsub(/&(.*?);/) do
       match = $1.dup
@@ -2359,7 +2359,7 @@ end
     def convert_to_utf8 #:nodoc:
       if self =~ /^(lt|gt|amp|quot|apos)$/i
         self.replace "&" + self.downcase + ";"
-      elsif MATHML_ENTITIES.has_key?(self)         
+      elsif MATHML_ENTITIES.has_key?(self)
         self.replace MATHML_ENTITIES[self].split(';').collect {|s| s.gsub(/^&#x([A-F0-9]+)$/, '\1').hex }.pack('U*')
       else
         self.replace "&amp;" + self + ";"
