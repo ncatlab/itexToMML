@@ -1,5 +1,5 @@
-/*             itex2MML 1.5.8
- *   itex2MML.l last modified 10/19/2018
+/*             itex2MML 1.6.1
+ *   itex2MML.l last modified 10/3/2021
  */
 
 %{
@@ -674,6 +674,15 @@ int itex2MML_displaymode = 0;
 "\\Perp" |
 "\\Vbar" {yylval=itex2MML_copy_string("&Vbar;"); return MOL;}
 "\\boxdot" {yylval=itex2MML_copy_string("&sdotb;"); return MOL;}
+"\\boxslash" {yylval=itex2MML_copy_string("&#x29C4;"); return MOL;}
+"\\boxbslash" {yylval=itex2MML_copy_string("&#x29C5;"); return MOL;}
+"\\boxast" {yylval=itex2MML_copy_string("&#x29C6;"); return MOL;}
+"\\boxcircle" {yylval=itex2MML_copy_string("&#x29C7;"); return MOL;}
+"\\boxbox" {yylval=itex2MML_copy_string("&#x29C8;"); return MOL;}
+"\\obar" {yylval=itex2MML_copy_string("&#x29B6;"); return MOL;}
+"\\obslash" {yylval=itex2MML_copy_string("&#x29B8;"); return MOL;}
+"\\olessthan" {yylval=itex2MML_copy_string("&#x29C0;"); return MOL;}
+"\\ogreaterthan" {yylval=itex2MML_copy_string("&#x29C1;"); return MOL;}
 "\\Box" |
 "\\square" {yylval=itex2MML_copy_string("&square;"); return MOL;}
 "\\emptyset" |
